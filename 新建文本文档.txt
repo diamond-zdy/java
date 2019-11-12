@@ -1,0 +1,64 @@
+public class Test {
+
+    // 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的
+    public static ListNode mergeTwoLists(ListNode headA,ListNode headB) {
+        ListNode newHead = new ListNode(-1);
+        ListNode tmp = newHead;
+        while (headA != null && headB != null) {
+            if (headA.data < headB.data) {
+                tmp.next = headA;
+                headA = headA.next;
+                tmp = tmp.next;
+            }else {
+                tmp.next = headB;
+                headB = headB.next;
+                tmp = tmp.next;
+            }
+        }
+        if (headA == null){
+            tmp.next = headB;
+        }else if (headB == null){
+            tmp.next = headA;
+        }
+        return newHead.next;
+    }
+    
+   
+    public static void main(String[] args) {
+        MySingleList mySingleList1 = new MySingleList();
+        //mySingleList.addFirst(4);
+        mySingleList1.addFirst(7);
+        mySingleList1.addFirst(5);
+        mySingleList1.addFirst(3);
+        mySingleList1.addFirst(1);
+
+        MySingleList mySingleList2 = new MySingleList();
+        mySingleList2.addLast(2);
+        mySingleList2.addLast(4);
+        mySingleList2.addLast(8);
+        mySingleList2.addLast(10);
+        mySingleList2.addLast(14);
+        mySingleList2.addLast(16);
+        mySingleList1.display();
+        mySingleList2.display();
+        ListNode newHead = mergeTwoLists(mySingleList1.head,mySingleList2.head);
+        mySingleList1.display2(newHead);
+        
+        //mySingleList.addLast(5);
+        //mySingleList.addFirst(2);
+        //mySingleList.addIndex(3,2);
+        //mySingleList.display();
+        //ListNode head = mySingleList.partition(3);
+        //mySingleList.display2(head);
+        //ListNode head = mySingleList1.deleteDuplication();
+        //mySingleList1.display2(head);
+        //boolean flg = mySingleList1.chkPalindrome();
+        //System.out.println(flg);
+       // mySingleList.remove(4);
+        //mySingleList.display();
+        //mySingleList.removeII(2);
+        //mySingleList.reverseLinkList();
+        //ListNode newHead = mySingleList.reverseLinkList();
+        //mySingleList.display2(newHead);
+    }
+}
