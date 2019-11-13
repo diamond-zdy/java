@@ -1,0 +1,80 @@
+public class Test {
+
+  //判断两个链表有没有交点
+    public static ListNode getIntersectionNode(ListNode headA,ListNode headB){
+        if (headA == null || headB == null) {
+            return null;
+        }
+        ListNode pL = headA;
+        ListNode pS = headB;
+
+        int lenA = 0;
+        int lenB = 0;
+        while (pL.next != null) {
+            lenA++;
+            pL = pL.next;
+        }
+        while (pS.next != null) {
+            lenB++;
+            pS = pS.next;
+        }
+        pL = headA;
+        pS = headB;
+        int len = lenA - lenB;
+        if (len < 0 ){
+            pL = headB;
+            pS = headA;
+            len = lenB - lenA;
+        }
+        while (len > 0) {
+            pL = pL.next;
+            len--;
+        }
+        while (pL != pS) {
+            pL = pL.next;
+            pS = pS.next;
+        }
+        if (pL ==null) {
+            return null;
+        }
+        return pL;
+    }
+   
+    public static void main(String[] args) {
+        MySingleList mySingleList1 = new MySingleList();
+        //mySingleList.addFirst(4);
+        mySingleList1.addFirst(7);
+        mySingleList1.addFirst(5);
+        mySingleList1.addFirst(3);
+        mySingleList1.addFirst(1);
+
+        MySingleList mySingleList2 = new MySingleList();
+        mySingleList2.addLast(2);
+        mySingleList2.addLast(4);
+        mySingleList2.addLast(8);
+        mySingleList2.addLast(10);
+        mySingleList2.addLast(14);
+        mySingleList2.addLast(16);
+        mySingleList1.display();
+        mySingleList2.display();
+        ListNode newHead = mergeTwoLists(mySingleList1.head,mySingleList2.head);
+        mySingleList1.display2(newHead);
+        
+        //mySingleList.addLast(5);
+        //mySingleList.addFirst(2);
+        //mySingleList.addIndex(3,2);
+        //mySingleList.display();
+        //ListNode head = mySingleList.partition(3);
+        //mySingleList.display2(head);
+        //ListNode head = mySingleList1.deleteDuplication();
+        //mySingleList1.display2(head);
+        //boolean flg = mySingleList1.chkPalindrome();
+        //System.out.println(flg);
+       // mySingleList.remove(4);
+        //mySingleList.display();
+        //mySingleList.removeII(2);
+        //mySingleList.reverseLinkList();
+        //ListNode newHead = mySingleList.reverseLinkList();
+        //mySingleList.display2(newHead);
+    }
+}
