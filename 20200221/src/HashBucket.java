@@ -1,0 +1,69 @@
+public class HashBucket {
+    static class Node {
+        private int key;
+        private int value;
+        private Node next;
+
+        public Node(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
+    private Node[] array = new Node[7];//存放单链表的头结点
+    private int size;//当前数据的个数
+
+
+    public int getValue(int key) {
+
+        int index = key % array.length;
+        //遍历array[index]下标的链表，找到值为key的数据，并且返回
+        Node cur = array[index];
+        while (cur!= null){
+            if (cur.key == key){
+                return cur.value ;
+            }
+            cur = cur.next;
+        }
+        return -1;
+    }
+    public void put(int key,int value){
+        int index = key % array.length;
+        for (Node cur = array[index];cur != null;cur = cur.next){
+            if (cur.key == key){
+                cur.value = value;
+                return;
+            }
+        }
+        //头插法
+        Node node = new Node(key,value);
+        node.next = array[index];
+        array[index] = node;
+        this.size++;
+        if (loadFactor() >= 0.75){
+            resize();//扩容,重新哈希
+        }
+    }
+
+    private void resize() {
+        Node[] newArray = new Node[2*array.length];
+        //重新哈希
+        //遍历原来的数组，将里面的元素重新进行哈希到新的数组里面
+        for (int i = 0;i < array.length;i++){
+            Node curNext = null;
+            for (Node cur = array[i];cur != null;cur = curNext){
+                curNext = cur.next;
+                int index = cur.key % newArray.length;
+                //头插法插入到新的链表中
+                cur.next = newArray[index];
+                newArray[index] = cur;
+            }
+        }
+        array = newArray;
+    }
+
+    //loadFactor() 负载因子
+    private double loadFactor() {
+        return this.size*1.0/array.length;
+    }
+}
