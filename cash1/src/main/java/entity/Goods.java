@@ -11,4 +11,14 @@ public class Goods {
     private String unit;
     private Integer price;
     private Integer discount;
+
+    private Integer buyGoodsNum;
+
+    public double getPrice(){
+        return price*1.0/100;
+    }
+
+    public int getPriceInt(){
+        return price;
+    }
 }

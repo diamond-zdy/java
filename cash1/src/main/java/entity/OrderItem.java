@@ -1,5 +1,8 @@
 package entity;
 
+import lombok.Data;
+
+@Data
 public class OrderItem {
     private Integer id;
     private String orderId;
@@ -18,4 +21,5 @@ public class OrderItem {
     public int getGoodsPriceInt(){
         return goodsPrice;
     }
+
 }
