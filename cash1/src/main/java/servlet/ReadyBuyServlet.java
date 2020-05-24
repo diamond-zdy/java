@@ -18,9 +18,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet("/pay")
@@ -55,8 +57,14 @@ public class ReadyBuyServlet extends HttpServlet {
         order.setAccount_id(account.getId());
         order.setAccount_name(account.getUsername());
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        order.setCreate_time(LocalDateTime.now().format(formatter));
+        /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        order.setCreate_time(LocalDateTime.now().format(formatter));*/
+
+        Date date = new Date();
+        System.out.println(date);
+        SimpleDateFormat format = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss"
+        );
 
         int totalMoney = 0;
         int actualMoney = 0;

@@ -16,8 +16,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet("/buyGoodsServlet")
@@ -36,8 +38,16 @@ public class buyGoodsServlet extends HttpServlet {
         //将订单内的数据写入数据库当中
         order.setOrder_status(OrderStatus.OK);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        order.setFinish_time(LocalDateTime.now().format(formatter));
+        /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        order.setFinish_time(LocalDateTime.now().format(formatter));*/
+
+        Date date = new Date();
+        System.out.println(date);
+        SimpleDateFormat format = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss"
+        );
+        String finishTime = format.format(date);
+        order.setFinish_time(finishTime);
         //提交订单
         boolean flg = commitOrder(order);
         /**
